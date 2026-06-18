@@ -759,6 +759,62 @@
 
         </div>
 
+        <!-- Project 4: Admin Dashboard -->
+        <div class="project-card" style="display: flex; flex-direction: column; height: 100%;">
+            <!-- Neobrutalist Project Image Slider -->
+            <div class="project-card-slider" id="dashboard-project-slider" data-captions='["Dashboard Overview — KPIs & Charts", "Login Page — Secure Authentication", "Register Page — New Account", "Team Management — Full CRUD", "Calendar — Event Scheduling", "Invoices — Balance & Status"]'>
+                <div class="slider-wrapper">
+                    <img src="image/projects/dashboard/dashboard-overview.png" alt="Admin Dashboard Overview" class="slider-img active">
+                    <img src="image/projects/dashboard/login.png" alt="Login Page" class="slider-img">
+                    <img src="image/projects/dashboard/register.png" alt="Register Page" class="slider-img">
+                    <img src="image/projects/dashboard/manage-team.png" alt="Team Management" class="slider-img">
+                    <img src="image/projects/dashboard/calendar.png" alt="Calendar" class="slider-img">
+                    <img src="image/projects/dashboard/listof invoives balance.png" alt="Invoices List" class="slider-img">
+                </div>
+
+                <!-- Slider Controls -->
+                <button class="slider-control prev" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-control next" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+
+                <!-- Navigation dots -->
+                <div class="slider-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                    <span class="dot" data-index="3"></span>
+                    <span class="dot" data-index="4"></span>
+                    <span class="dot" data-index="5"></span>
+                </div>
+
+                <!-- Caption -->
+                <div class="slider-caption">Dashboard Overview — KPIs & Charts</div>
+            </div>
+
+            <div class="project-header">
+                <h3 class="project-title">🚀 Admin Dashboard</h3>
+                <div class="project-links">
+                    <a href="https://github.com/Latreche-khalil14/admin-dashboard" target="_blank" class="icon-link" title="GitHub Repository">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <p class="project-desc" style="flex-grow: 1;">A full-featured enterprise admin panel built with React 18 & Material UI. Features authentication, real-time data visualization with Nivo charts, team management (CRUD), calendar integration, and dark/light mode — all with zero backend required.</p>
+            <div class="tech-tags" style="margin-bottom: 1.5rem;">
+                <span class="tag"><i class="fab fa-react"></i> React 18</span>
+                <span class="tag"><i class="fas fa-bolt"></i> Vite 4</span>
+                <span class="tag"><i class="fas fa-palette"></i> MUI v5</span>
+                <span class="tag"><i class="fas fa-chart-bar"></i> Nivo Charts</span>
+                <span class="tag"><i class="fas fa-calendar-alt"></i> FullCalendar</span>
+                <span class="tag"><i class="fab fa-js"></i> React Router v6</span>
+            </div>
+            <div class="project-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 2px dashed var(--border); padding-top: 1rem; margin-top: auto;">
+                <span class="highlight-badge"><i class="fas fa-tachometer-alt"></i> Enterprise Panel</span>
+                <button class="btn-neo-small btn-view-details" data-project="dashboard">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -2502,6 +2558,125 @@ const locations = [
             </div>
         </div>
     </div>
+
+<!-- Admin Dashboard Project Details Modal -->
+<div id="dashboard-modal" class="neo-modal">
+    <div class="neo-modal-overlay"></div>
+    <div class="neo-modal-content animate-pop">
+        <button class="neo-modal-close" aria-label="Close modal">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="neo-modal-body">
+            <!-- Modal Header -->
+            <div class="modal-header-section">
+                <span class="modal-badge"><i class="fas fa-tachometer-alt"></i> Enterprise Admin Panel</span>
+                <h2 class="modal-project-title">🚀 Admin Dashboard</h2>
+                <p class="modal-highlight-trilemma">
+                    A modern, full-featured admin panel built with <strong>React 18 + Vite</strong> and <strong>Material UI v5</strong>.
+                    Features real-time data visualization, complete authentication, team management (CRUD),
+                    calendar scheduling, and beautiful dark/light mode — all with <strong>zero backend required</strong>.
+                </p>
+                <div class="tech-tags" style="margin-top:1rem;">
+                    <span class="tag"><i class="fab fa-react"></i> React 18</span>
+                    <span class="tag"><i class="fas fa-bolt"></i> Vite 4</span>
+                    <span class="tag"><i class="fas fa-palette"></i> MUI v5</span>
+                    <span class="tag"><i class="fas fa-chart-bar"></i> Nivo Charts</span>
+                    <span class="tag"><i class="fas fa-calendar-alt"></i> FullCalendar v6</span>
+                    <span class="tag"><i class="fas fa-route"></i> React Router v6</span>
+                    <span class="tag"><i class="fas fa-database"></i> localStorage</span>
+                </div>
+            </div>
+
+            <div class="modal-grid">
+                <div class="modal-col-left">
+                    <div class="modal-card section-card">
+                        <h3 class="modal-card-title"><i class="fas fa-star"></i> Key Features</h3>
+                        <ul class="modal-feature-list">
+                            <li><strong>🔐 Authentication</strong> — Login & Register with client-side validation, session persistence via localStorage, and protected routes.</li>
+                            <li><strong>📊 KPI Dashboard</strong> — Cards with trend indicators (revenue, users, transactions, traffic) + Bar, Line, Pie, and Geography Nivo charts.</li>
+                            <li><strong>👥 Team Management</strong> — Full CRUD (add/edit/delete) with MUI DataGrid, sorting, filtering, and pagination.</li>
+                            <li><strong>📋 Contacts & Invoices</strong> — Searchable directory and invoice records with payment status badges.</li>
+                            <li><strong>📅 Calendar</strong> — FullCalendar integration with Day/Week/Month views; add and delete events persisted in localStorage.</li>
+                            <li><strong>🌐 Geography Map</strong> — Worldwide traffic heatmap powered by Nivo Geo.</li>
+                            <li><strong>🎨 Dark / Light Mode</strong> — Toggle with persistent preference stored across sessions.</li>
+                            <li><strong>📱 Fully Responsive</strong> — Collapsible sidebar with smooth animations on all screen sizes.</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-card section-card" style="margin-top:1.5rem;">
+                        <h3 class="modal-card-title"><i class="fas fa-swatchbook"></i> Pages Overview</h3>
+                        <ul class="modal-feature-list">
+                            <li><strong>/login</strong> — Secure authentication (Login + Register)</li>
+                            <li><strong>/</strong> — Dashboard: KPIs & charts overview</li>
+                            <li><strong>/team</strong> — Manage team members (CRUD)</li>
+                            <li><strong>/contacts</strong> — Contact directory</li>
+                            <li><strong>/invoices</strong> — Invoice records with balances</li>
+                            <li><strong>/calendar</strong> — Interactive event scheduling</li>
+                            <li><strong>/bar, /pie, /line, /geography</strong> — Dedicated chart pages</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modal-col-right">
+                    <div class="modal-card pipeline-card">
+                        <h3 class="modal-card-title"><i class="fas fa-layer-group"></i> Tech Stack</h3>
+                        <div class="pipeline-steps">
+                            <div class="pipeline-step">
+                                <div class="step-icon" style="background:var(--cyan);"><i class="fab fa-react"></i></div>
+                                <div class="step-content">
+                                    <strong>React 18 + Vite 4</strong>
+                                    <span>Framework & Build Tool</span>
+                                </div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="step-icon" style="background:var(--yellow);"><i class="fas fa-palette"></i></div>
+                                <div class="step-content">
+                                    <strong>Material UI v5</strong>
+                                    <span>UI Library + MUI X DataGrid</span>
+                                </div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="step-icon" style="background:var(--pink);"><i class="fas fa-chart-line"></i></div>
+                                <div class="step-content">
+                                    <strong>Nivo Charts</strong>
+                                    <span>Bar, Line, Pie & Geo Maps</span>
+                                </div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="step-icon" style="background:var(--accent);"><i class="fas fa-calendar-check"></i></div>
+                                <div class="step-content">
+                                    <strong>FullCalendar v6</strong>
+                                    <span>Event Scheduling & Views</span>
+                                </div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="step-icon" style="background:var(--secondary);"><i class="fas fa-route"></i></div>
+                                <div class="step-content">
+                                    <strong>React Router DOM v6</strong>
+                                    <span>Routing & Protected Routes</span>
+                                </div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="step-icon" style="background:#e0e0e0;"><i class="fas fa-database"></i></div>
+                                <div class="step-content">
+                                    <strong>localStorage</strong>
+                                    <span>Simulated DB — No backend needed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer Links -->
+            <div class="modal-action-footer">
+                <a href="https://github.com/Latreche-khalil14/admin-dashboard" target="_blank" class="btn-submit btn-modal-link">
+                    <i class="fab fa-github"></i> View Source Code
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
