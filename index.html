@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -60,6 +60,7 @@
 <!-- External JavaScript -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script>
   (function(){
     emailjs.init({ publicKey: 'sqanY_7JlJNvdHAN-' });
@@ -193,6 +194,9 @@
                 <button id="theme-toggle" class="theme-toggle-nav" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
                 </button>
+                <button id="sound-toggle" class="sound-toggle-nav" aria-label="Toggle sound" title="تفعيل/كتم الأصوات">
+                    <i class="fas fa-volume-up"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -202,6 +206,7 @@
             <div class="hero-left">
                 <p class="hero-greeting" id="hero-greeting">Hi there! 👋</p>
                 <h1 class="hero-name">I'm Latreche Khalil.</h1>
+                <p class="hero-subtitle-type">I'm a <span id="typewriter-role" class="typewriter-role"></span><span class="typewriter-cursor">|</span></p>
                 <p class="hero-description">
                  Computer Science student and aspiring Software Engineer with a strong interest in Artificial Intelligence, Web Development, and Software Architecture. Passionate about building intelligent applications and continuously expanding my technical skills through real-world projects.
                 </p>
@@ -215,6 +220,9 @@
                 </div>
                 <div class="hero-cta-container">
                     <a href="#contact" class="btn-cta">Get in Touch!</a>
+                    <button id="share-btn" class="btn-share" title="Share this portfolio" aria-label="Share portfolio">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
                 </div>
             </div>
             <div class="hero-right">
@@ -349,6 +357,26 @@
                     I bring a unique blend of <span class="highlight highlight-yellow">technical expertise</span>, <span class="highlight highlight-green">leadership qualities</span>, and a genuine enthusiasm for creating
                     <span class="highlight highlight-cyan">impactful software solutions</span>.
                 </p>
+
+                <!-- Animated Counters -->
+                <div class="about-counters" id="about-counters">
+                    <div class="counter-item">
+                        <span class="counter-num" data-target="10">0</span><span class="counter-suffix">+</span>
+                        <p class="counter-label">Projects</p>
+                    </div>
+                    <div class="counter-item">
+                        <span class="counter-num" data-target="10">0</span><span class="counter-suffix">+</span>
+                        <p class="counter-label">Technologies</p>
+                    </div>
+                    <div class="counter-item">
+                        <span class="counter-num" data-target="3">0</span><span class="counter-suffix">+</span>
+                        <p class="counter-label">Years Coding</p>
+                    </div>
+                    <div class="counter-item">
+                        <span class="counter-num" data-target="4000">0</span><span class="counter-suffix">+</span>
+                        <p class="counter-label">Hours of Code</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1030,7 +1058,59 @@
         </svg>
     </div>
 
-        <section class="section" id="contact">
+    <!-- ═══ GUESTBOOK SECTION ═══ -->
+    <section class="section" id="guestbook">
+        <h2 class="section-title">GUESTBOOK</h2>
+        <div class="guestbook-container" style="max-width: 1000px; margin: 0 auto; padding: 0 1rem;">
+            <p class="section-subtitle-text" style="font-size: 1.15rem; margin-bottom: 2rem; font-weight: 600; color: var(--text); text-align: center;">
+                Leave a sticky note on my virtual board! Drag them around to design the wall layout. 📌
+            </p>
+            <div class="guestbook-layout">
+                <!-- Form to Add Note -->
+                <div class="guestbook-form-card card" style="margin-bottom: 2rem;">
+                    <h3 class="form-title" style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-edit" style="color:var(--pink);"></i> Leave a Note</h3>
+                    <form id="guestbook-form" class="guestbook-form">
+                        <div class="form-row-guestbook" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+                            <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+                                <label for="note-name" style="font-weight: 700; font-size: 0.95rem; color: var(--text);">Your Name</label>
+                                <input type="text" id="note-name" placeholder="Name or Nickname" required style="font-family: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.65rem 1rem; border: 3px solid var(--border); border-radius: 6px; outline: none; background: var(--bg-card); color: var(--text);">
+                            </div>
+                            <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+                                <label style="font-weight: 700; font-size: 0.95rem; color: var(--text);">Note Color</label>
+                                <div class="color-picker" style="display: flex; gap: 0.75rem; align-items: center; height: 100%;">
+                                    <div class="color-opt active" data-color="yellow" style="width: 36px; height: 36px; border: 3px solid var(--border); border-radius: 6px; cursor: pointer; background: var(--yellow); box-shadow: 2px 2px 0 var(--border);"></div>
+                                    <div class="color-opt" data-color="pink" style="width: 36px; height: 36px; border: 3px solid var(--border); border-radius: 6px; cursor: pointer; background: var(--pink); box-shadow: 2px 2px 0 var(--border);"></div>
+                                    <div class="color-opt" data-color="cyan" style="width: 36px; height: 36px; border: 3px solid var(--border); border-radius: 6px; cursor: pointer; background: var(--cyan); box-shadow: 2px 2px 0 var(--border);"></div>
+                                    <div class="color-opt" data-color="green" style="width: 36px; height: 36px; border: 3px solid var(--border); border-radius: 6px; cursor: pointer; background: var(--secondary); box-shadow: 2px 2px 0 var(--border);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.5rem;">
+                            <label for="note-msg" style="font-weight: 700; font-size: 0.95rem; color: var(--text);">Your Message</label>
+                            <textarea id="note-msg" rows="3" placeholder="Write a short message (max 100 chars)..." maxlength="100" required style="font-family: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.75rem 1rem; border: 3px solid var(--border); border-radius: 6px; outline: none; resize: none; background: var(--bg-card); color: var(--text);"></textarea>
+                        </div>
+                        <button type="submit" class="btn-stick">
+                            Stick Note 📌
+                        </button>
+                    </form>
+                </div>
+
+                <!-- DND Board -->
+                <div id="guestbook-board" class="guestbook-board">
+                    <!-- Sticky Notes will be loaded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="paper-tear" style="margin:0;">
+        <svg width="100%" height="30" viewBox="0 0 1440 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,15 Q10,5 20,15 T40,15 Q50,5 60,15 T80,15 Q90,20 100,15 T120,15 Q130,10 140,15 T160,15 Q170,5 180,15 T200,15 Q210,20 220,15 T240,15 Q250,8 260,15 T280,15 Q290,18 300,15 T320,15 Q330,5 340,15 T360,15 Q370,12 380,15 T400,15 Q410,20 420,15 T440,15 Q450,6 460,15 T480,15 Q490,16 500,15 T520,15 Q530,8 540,15 T560,15 Q570,20 580,15 T600,15 Q610,10 620,15 T640,15 Q650,5 660,15 T680,15 Q690,18 700,15 T720,15 Q730,12 740,15 T760,15 Q770,7 780,15 T800,15 Q810,20 820,15 T840,15 Q850,9 860,15 T880,15 Q890,14 900,15 T920,15 Q930,6 940,15 T960,15 Q970,19 980,15 T1000,15 Q1010,11 1020,15 T1040,15 Q1050,5 1060,15 T1080,15 Q1090,17 1100,15 T1120,15 Q1130,8 1140,15 T1160,15 Q1170,13 1180,15 T1200,15 Q1210,20 1220,15 T1240,15 Q1250,7 1260,15 T1280,15 Q1290,16 1300,15 T1320,15 Q1330,10 1340,15 T1360,15 Q1370,5 1380,15 T1400,15 Q1410,18 1420,15 T1440,15"
+            fill="none" stroke="var(--border)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+    <section class="section" id="contact">
             <h2 class="section-title">GET IN TOUCH</h2>
             <div class="contact-container-compact">
                 <p class="contact-intro">Let's build something amazing together</p>
@@ -2806,6 +2886,1239 @@ const locations = [
     </div>
 </div>
 
+    <!-- ═══ NEW UX FEATURES ELEMENTS ═══ -->
+
+
+    <!-- Achievement Toast -->
+    <div id="achievement-toast" class="achievement-toast">
+        <div class="toast-icon">🏆</div>
+        <div class="toast-text">
+            <span class="toast-title">New Achievement!</span>
+            <span id="toast-achievement-name" class="toast-name">Achievement Name</span>
+        </div>
+    </div>
+
+    <!-- Achievements Widget -->
+    <div id="neo-achievements-widget" class="neo-achievements-widget">
+        <button id="achievements-btn" class="achievements-btn" title="Achievements & Trophies 🏆" aria-label="Open Achievements">
+            <i class="fas fa-trophy"></i>
+            <span class="badge-count-bubble">0/5</span>
+        </button>
+        <div id="achievements-panel" class="achievements-panel hidden">
+            <div class="panel-header">
+                <h3>🏆 Achievements Unlocked</h3>
+                <button id="panel-close" class="panel-close" aria-label="Close panel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="panel-body">
+                <div class="achievement-item locked" id="ach-konami">
+                    <div class="ach-icon"><i class="fas fa-gamepad"></i></div>
+                    <div class="ach-info">
+                        <h4>🎮 Gamer Instinct</h4>
+                        <p>Successfully entered the secret Konami Code!</p>
+                    </div>
+                    <div class="ach-status"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="achievement-item locked" id="ach-avatar">
+                    <div class="ach-icon"><i class="fas fa-comments"></i></div>
+                    <div class="ach-info">
+                        <h4>💬 Chatterbox</h4>
+                        <p>Clicked the interactive assistant 5 times.</p>
+                    </div>
+                    <div class="ach-status"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="achievement-item locked" id="ach-explore">
+                    <div class="ach-icon"><i class="fas fa-compass"></i></div>
+                    <div class="ach-info">
+                        <h4>📍 Thorough Explorer</h4>
+                        <p>Visited all sections of the portfolio.</p>
+                    </div>
+                    <div class="ach-status"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="achievement-item locked" id="ach-copy">
+                    <div class="ach-icon"><i class="fas fa-copy"></i></div>
+                    <div class="ach-info">
+                        <h4>📋 Code Collector</h4>
+                        <p>Copied some code/content from the portfolio.</p>
+                    </div>
+                    <div class="ach-status"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="achievement-item locked" id="ach-contact">
+                    <div class="ach-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="ach-info">
+                        <h4>📨 Hello World</h4>
+                        <p>Started writing or submitted a contact message.</p>
+                    </div>
+                    <div class="ach-status"><i class="fas fa-lock"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ NEW UX FEATURES JAVASCRIPT ═══ -->
+    <script>
+    var AudioSynth = {
+        ctx: null,
+        isMuted: localStorage.getItem('neo-sfx-muted') === 'true',
+        
+        init: function() {
+            if (!this.ctx) {
+                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (this.ctx.state === 'suspended') {
+                this.ctx.resume();
+            }
+        },
+        
+        playClick: function() {
+            if (this.isMuted) return;
+            this.init();
+            var now = this.ctx.currentTime;
+            var osc = this.ctx.createOscillator();
+            var gain = this.ctx.createGain();
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(550, now);
+            osc.frequency.exponentialRampToValueAtTime(100, now + 0.08);
+            
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.005, now + 0.08);
+            
+            osc.start(now);
+            osc.stop(now + 0.08);
+        },
+        
+        playWink: function() {
+            if (this.isMuted) return;
+            this.init();
+            var now = this.ctx.currentTime;
+            var osc = this.ctx.createOscillator();
+            var gain = this.ctx.createGain();
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(250, now);
+            osc.frequency.linearRampToValueAtTime(650, now + 0.15);
+            
+            gain.gain.setValueAtTime(0.06, now);
+            gain.gain.exponentialRampToValueAtTime(0.005, now + 0.15);
+            
+            osc.start(now);
+            osc.stop(now + 0.15);
+        },
+        
+        playBadgeUnlock: function() {
+            if (this.isMuted) return;
+            this.init();
+            var now = this.ctx.currentTime;
+            
+            var playNote = function(freq, start, duration) {
+                var osc = AudioSynth.ctx.createOscillator();
+                var gain = AudioSynth.ctx.createGain();
+                osc.connect(gain);
+                gain.connect(AudioSynth.ctx.destination);
+                
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(freq, start);
+                
+                gain.gain.setValueAtTime(0.05, start);
+                gain.gain.exponentialRampToValueAtTime(0.005, start + duration);
+                
+                osc.start(start);
+                osc.stop(start + duration);
+            };
+            
+            playNote(523.25, now, 0.08);       // C5
+            playNote(659.25, now + 0.08, 0.08); // E5
+            playNote(783.99, now + 0.16, 0.08); // G5
+            playNote(1046.50, now + 0.24, 0.25); // C6
+        },
+        
+        playConfetti: function() {
+            if (this.isMuted) return;
+            this.init();
+            var now = this.ctx.currentTime;
+            
+            var osc = this.ctx.createOscillator();
+            var gain = this.ctx.createGain();
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(80, now);
+            osc.frequency.exponentialRampToValueAtTime(1000, now + 0.35);
+            
+            gain.gain.setValueAtTime(0.05, now);
+            gain.gain.exponentialRampToValueAtTime(0.005, now + 0.35);
+            
+            osc.start(now);
+            osc.stop(now + 0.35);
+        },
+        
+        playShare: function() {
+            if (this.isMuted) return;
+            this.init();
+            var now = this.ctx.currentTime;
+            
+            var playNote = function(freq, start, duration) {
+                var osc = AudioSynth.ctx.createOscillator();
+                var gain = AudioSynth.ctx.createGain();
+                osc.connect(gain);
+                gain.connect(AudioSynth.ctx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, start);
+                gain.gain.setValueAtTime(0.05, start);
+                gain.gain.exponentialRampToValueAtTime(0.005, start + duration);
+                osc.start(start);
+                osc.stop(start + duration);
+            };
+            
+            playNote(587.33, now, 0.05); // D5
+            playNote(880.00, now + 0.05, 0.1); // A5
+        }
+    };
+
+
+
+    // Achievements System Setup
+    (function() {
+        var widget = document.getElementById('neo-achievements-widget');
+        var btn = document.getElementById('achievements-btn');
+        var panel = document.getElementById('achievements-panel');
+        var closeBtn = document.getElementById('panel-close');
+        var countBubble = widget.querySelector('.badge-count-bubble');
+        var toast = document.getElementById('achievement-toast');
+        var toastName = document.getElementById('toast-achievement-name');
+
+        if (!widget || !btn || !panel || !closeBtn) return;
+
+        var saved = localStorage.getItem('neo-achievements');
+        var achievements = saved ? JSON.parse(saved) : {
+            konami: false,
+            avatar: false,
+            explore: false,
+            copy: false,
+            contact: false
+        };
+
+        var badgeNames = {
+            konami: '🎮 Gamer Instinct',
+            avatar: '💬 Chatterbox',
+            explore: '📍 Thorough Explorer',
+            copy: '📋 Code Collector',
+            contact: '📨 Hello World'
+        };
+
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            panel.classList.toggle('hidden');
+            AudioSynth.playClick();
+        });
+
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            panel.classList.add('hidden');
+            AudioSynth.playClick();
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!widget.contains(e.target)) {
+                panel.classList.add('hidden');
+            }
+        });
+
+        function updateUI() {
+            var unlockedCount = 0;
+            Object.keys(achievements).forEach(function(key) {
+                var el = document.getElementById('ach-' + key);
+                if (el) {
+                    if (achievements[key]) {
+                        el.classList.remove('locked');
+                        var icon = el.querySelector('.ach-status i');
+                        if (icon) {
+                            icon.className = 'fas fa-check-circle';
+                        }
+                        unlockedCount++;
+                    } else {
+                        el.classList.add('locked');
+                        var icon = el.querySelector('.ach-status i');
+                        if (icon) {
+                            icon.className = 'fas fa-lock';
+                        }
+                    }
+                }
+            });
+            countBubble.textContent = unlockedCount + '/5';
+            if (unlockedCount === 5) {
+                countBubble.style.background = '#27c93f';
+            }
+        }
+
+        function unlockAchievement(id) {
+            if (achievements[id]) return;
+            achievements[id] = true;
+            localStorage.setItem('neo-achievements', JSON.stringify(achievements));
+            updateUI();
+            
+            AudioSynth.playBadgeUnlock();
+            
+            toastName.textContent = badgeNames[id];
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        updateUI();
+
+        // 1. Konami Code Listener
+        var konamiCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+        var kIdx = 0;
+        document.addEventListener('keydown', function(e) {
+            if (e.key === konamiCode[kIdx]) {
+                kIdx++;
+                if (kIdx === konamiCode.length) {
+                    kIdx = 0;
+                    unlockAchievement('konami');
+                }
+            } else { kIdx = 0; }
+        });
+
+        // 2. Avatar Click Listener (Chatterbox badge - 5 clicks)
+        var avatarWrapper = document.getElementById('neo-avatar-wrapper');
+        if (avatarWrapper) {
+            var avatarClicks = 0;
+            avatarWrapper.addEventListener('click', function() {
+                avatarClicks++;
+                if (avatarClicks >= 5) {
+                    unlockAchievement('avatar');
+                }
+            });
+        }
+
+        // 3. Section Explorer (Explore all sections)
+        var sectionsSeen = {
+            hero: false,
+            about: false,
+            experience: false,
+            skills: false,
+            projects: false,
+            contact: false
+        };
+        if ('IntersectionObserver' in window) {
+            Object.keys(sectionsSeen).forEach(function(secId) {
+                var secEl = document.getElementById(secId);
+                if (secEl) {
+                    var observer = new IntersectionObserver(function(entries) {
+                        if (entries[0].isIntersecting) {
+                            sectionsSeen[secId] = true;
+                            checkAllSectionsSeen();
+                            observer.disconnect();
+                        }
+                    }, { threshold: 0.1 });
+                    observer.observe(secEl);
+                }
+            });
+        }
+        function checkAllSectionsSeen() {
+            var allSeen = Object.keys(sectionsSeen).every(function(k) {
+                return sectionsSeen[k] === true;
+            });
+            if (allSeen) {
+                unlockAchievement('explore');
+            }
+        }
+
+        // 4. Code Copied
+        document.addEventListener('copy', function() {
+            unlockAchievement('copy');
+        });
+
+        // 5. Contact Input Focus (first contact)
+        var contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('focusin', function() {
+                unlockAchievement('contact');
+            });
+            contactForm.addEventListener('submit', function() {
+                unlockAchievement('contact');
+            });
+        }
+
+        window.unlockAchievement = unlockAchievement;
+    })();
+
+    // sound-toggle setup
+    (function() {
+        var soundBtn = document.getElementById('sound-toggle');
+        if (!soundBtn) return;
+        
+        function updateSoundButton() {
+            var icon = soundBtn.querySelector('i');
+            if (AudioSynth.isMuted) {
+                icon.className = 'fas fa-volume-mute';
+                soundBtn.style.background = '#777777';
+            } else {
+                icon.className = 'fas fa-volume-up';
+                soundBtn.style.background = 'var(--pink)';
+            }
+        }
+        
+        soundBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            AudioSynth.isMuted = !AudioSynth.isMuted;
+            localStorage.setItem('neo-sfx-muted', AudioSynth.isMuted);
+            updateSoundButton();
+            
+            // Sync with avatar mute
+            var avatarContainer = document.getElementById('neo-avatar-container');
+            if (avatarContainer) {
+                localStorage.setItem('neo-avatar-muted', AudioSynth.isMuted);
+                if (AudioSynth.isMuted) {
+                    avatarContainer.classList.add('muted');
+                } else {
+                    avatarContainer.classList.remove('muted');
+                }
+            }
+            
+            AudioSynth.playClick();
+        });
+        
+        updateSoundButton();
+        
+        var clickables = document.querySelectorAll('a, button, select, input[type="submit"], .social-btn, .theme-toggle-nav, .sound-toggle-nav, .counter-item');
+        clickables.forEach(function(el) {
+            el.addEventListener('click', function() {
+                AudioSynth.playClick();
+            });
+        });
+    })();
+
+    // Guestbook Board Setup
+    (function() {
+        var board = document.getElementById('guestbook-board');
+        var form = document.getElementById('guestbook-form');
+        var colorOpts = document.querySelectorAll('.color-opt');
+        var noteNameInput = document.getElementById('note-name');
+        var noteMsgInput = document.getElementById('note-msg');
+        
+        if (!board || !form) return;
+
+        var selectedColor = 'yellow';
+
+        colorOpts.forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                colorOpts.forEach(function(o) { o.classList.remove('active'); });
+                opt.classList.add('active');
+                selectedColor = opt.dataset.color;
+                AudioSynth.playClick();
+            });
+        });
+
+        var savedNotes = localStorage.getItem('neo-guestbook-notes');
+        var notes = savedNotes ? JSON.parse(savedNotes) : [
+            {
+                id: 'note-1',
+                name: 'Alice Cooper',
+                message: 'Wow! Amazing portfolio, the design is super clean! 🚀',
+                color: 'yellow',
+                x: 30,
+                y: 40
+            },
+            {
+                id: 'note-2',
+                name: 'Bob Miller',
+                message: 'Love the custom cursor and sounds! Extremely fun to play with. 🕹️',
+                color: 'pink',
+                x: 230,
+                y: 120
+            },
+            {
+                id: 'note-3',
+                name: 'Charlie Dev',
+                message: 'The interactive Leaflet map in the Journey section is so creative! 🗺️',
+                color: 'cyan',
+                x: 120,
+                y: 280
+            }
+        ];
+
+        function createNoteElement(note) {
+            var el = document.createElement('div');
+            el.className = 'sticky-note ' + note.color;
+            el.id = note.id;
+            el.style.left = note.x + 'px';
+            el.style.top = note.y + 'px';
+
+            var rot = (Math.random() * 8 - 4).toFixed(1);
+            el.style.transform = 'rotate(' + rot + 'deg)';
+
+            el.innerHTML = `
+                <div class="note-tape"></div>
+                <button class="note-delete" title="Delete note"><i class="fas fa-trash-alt"></i></button>
+                <div class="note-text">${escapeHTML(note.message)}</div>
+                <div class="note-meta">
+                    <span class="note-author">By: ${escapeHTML(note.name)}</span>
+                </div>
+            `;
+
+            el.querySelector('.note-delete').addEventListener('click', function(e) {
+                e.stopPropagation();
+                deleteNote(note.id);
+                AudioSynth.playClick();
+            });
+
+            makeElementDraggable(el, note);
+            board.appendChild(el);
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/"/g, '&quot;')
+                      .replace(/'/g, '&#039;');
+        }
+
+        function renderNotes() {
+            board.innerHTML = '';
+            notes.forEach(function(note) {
+                createNoteElement(note);
+            });
+        }
+
+        function saveNotes() {
+            localStorage.setItem('neo-guestbook-notes', JSON.stringify(notes));
+        }
+
+        function deleteNote(id) {
+            notes = notes.filter(function(n) { return n.id !== id; });
+            saveNotes();
+            var el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            var name = noteNameInput.value.trim();
+            var message = noteMsgInput.value.trim();
+
+            if (!name || !message) return;
+
+            var boardW = board.clientWidth || 400;
+            var boardH = board.clientHeight || 480;
+            var safeW = Math.max(10, boardW - 190);
+            var safeH = Math.max(10, boardH - 160);
+            var x = Math.floor(Math.random() * safeW);
+            var y = Math.floor(Math.random() * safeH);
+
+            var newNote = {
+                id: 'note-' + Date.now(),
+                name: name,
+                message: message,
+                color: selectedColor,
+                x: x,
+                y: y
+            };
+
+            notes.push(newNote);
+            saveNotes();
+            createNoteElement(newNote);
+
+            AudioSynth.playConfetti();
+
+            noteNameInput.value = '';
+            noteMsgInput.value = '';
+        });
+
+        function makeElementDraggable(el, note) {
+            var startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+            var isDragging = false;
+
+            function onStart(clientX, clientY) {
+                isDragging = true;
+                startX = clientX;
+                startY = clientY;
+                initialLeft = parseInt(el.style.left, 10) || 0;
+                initialTop = parseInt(el.style.top, 10) || 0;
+                el.style.zIndex = 1000;
+                el.style.cursor = 'grabbing';
+            }
+
+            function onMove(clientX, clientY) {
+                if (!isDragging) return;
+                var dx = clientX - startX;
+                var dy = clientY - startY;
+                var newX = initialLeft + dx;
+                var newY = initialTop + dy;
+
+                var maxW = board.clientWidth - el.offsetWidth;
+                var maxH = board.clientHeight - el.offsetHeight;
+                
+                newX = Math.max(0, Math.min(newX, maxW));
+                newY = Math.max(0, Math.min(newY, maxH));
+
+                el.style.left = newX + 'px';
+                el.style.top = newY + 'px';
+
+                note.x = newX;
+                note.y = newY;
+            }
+
+            function onEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                el.style.zIndex = '';
+                el.style.cursor = 'grab';
+                saveNotes();
+            }
+
+            el.addEventListener('mousedown', function(e) {
+                if (e.target.closest('.note-delete')) return;
+                onStart(e.clientX, e.clientY);
+                e.preventDefault();
+                
+                function mouseMoveHandler(ev) {
+                    onMove(ev.clientX, ev.clientY);
+                }
+                function mouseUpHandler() {
+                    onEnd();
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                }
+                document.addEventListener('mousemove', mouseMoveHandler);
+                document.addEventListener('mouseup', mouseUpHandler);
+            });
+
+            el.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.note-delete')) return;
+                var touch = e.touches[0];
+                onStart(touch.clientX, touch.clientY);
+                
+                function touchMoveHandler(ev) {
+                    var t = ev.touches[0];
+                    onMove(t.clientX, t.clientY);
+                    ev.preventDefault();
+                }
+                function touchEndHandler() {
+                    onEnd();
+                    document.removeEventListener('touchmove', touchMoveHandler);
+                    document.removeEventListener('touchend', touchEndHandler);
+                }
+                document.addEventListener('touchmove', touchMoveHandler, { passive: false });
+                document.addEventListener('touchend', touchEndHandler);
+            });
+        }
+
+        renderNotes();
+    })();
+    </script>
+
+    <!-- Interactive Cartoon Avatar Widget -->
+    <div id="neo-avatar-container" class="neo-avatar-container">
+        <!-- Speech Bubble -->
+        <div id="neo-avatar-bubble" class="neo-avatar-bubble hidden">
+            <button id="neo-avatar-bubble-close" class="neo-avatar-bubble-close" aria-label="Close comment">
+                <i class="fas fa-times"></i>
+            </button>
+            <span id="neo-avatar-text">مرحباً بك!</span>
+        </div>
+        <!-- Avatar Wrapper -->
+        <div id="neo-avatar-wrapper" class="neo-avatar-wrapper" title="اضغط للتفاعل مع المساعد!">
+            <svg class="neo-avatar-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Antennae -->
+                <rect x="47" y="10" width="6" height="15" fill="#000" rx="3" />
+                <circle cx="50" cy="10" r="7" fill="var(--pink)" stroke="#000" stroke-width="3.5" />
+                
+                <!-- Ears -->
+                <rect x="15" y="42" width="10" height="20" fill="var(--yellow)" stroke="#000" stroke-width="3.5" rx="4" />
+                <rect x="75" y="42" width="10" height="20" fill="var(--yellow)" stroke="#000" stroke-width="3.5" rx="4" />
+
+                <!-- Head -->
+                <rect x="22" y="22" width="56" height="56" fill="var(--white)" stroke="#000" stroke-width="4" rx="12" />
+
+                <!-- Screen Face -->
+                <rect x="30" y="30" width="40" height="28" fill="#000" rx="6" />
+
+                <!-- Eyes (Glowing Cyan) -->
+                <circle class="avatar-eye" cx="42" cy="44" r="5" fill="#00f0ff" />
+                <circle class="avatar-eye" cx="58" cy="44" r="5" fill="#00f0ff" />
+
+                <!-- Mouth -->
+                <path d="M 42 66 Q 50 72 58 66" fill="none" stroke="#000" stroke-width="4" stroke-linecap="round" />
+            </svg>
+            <!-- Mute Indicator Badge -->
+            <div class="neo-avatar-mute-badge">
+                <i class="fas fa-volume-mute"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Cartoon Avatar: JS (placed AFTER HTML so getElementById works) -->
+    <script>
+    (function() {
+        'use strict';
+        var container = document.getElementById('neo-avatar-container');
+        var wrapper   = document.getElementById('neo-avatar-wrapper');
+        var bubble    = document.getElementById('neo-avatar-bubble');
+        var textEl    = document.getElementById('neo-avatar-text');
+        var closeBtn  = document.getElementById('neo-avatar-bubble-close');
+
+        if (!container || !wrapper || !bubble || !textEl || !closeBtn) return;
+
+        var isMuted      = localStorage.getItem('neo-avatar-muted') === 'true';
+        var isSpeaking   = false;
+        var speechTimer  = null;
+        var speakEndTime = 0;
+
+        // One-time section flags
+        var seenSections = {};
+
+        // Random tips pool (shown on avatar click)
+        var tips = [
+            'This Neobrutalist design is intentional — bold colors and thick borders on purpose! 🎨',
+            'Khalil built this entire site himself, no heavy frameworks! 💪',
+            'Have you tried the Snake game in the Terminal page? Type snake there! 🐍',
+            'The AI Resume project uses SHAP to explain hiring decisions transparently! 🧠',
+            'Dark Mode is supported — try the theme toggle in the top right corner! 🌙',
+            'You can message Khalil directly from the contact form at the bottom! 📨',
+            'The map is powered by Leaflet.js — it shows Khalil\'s academic journey! 🗺️',
+            'All projects shown here are real with source code on GitHub! ⭐'
+        ];
+
+        if (isMuted) container.classList.add('muted');
+
+        /* ─── Core Functions ─── */
+        function speak(text, ms, type) {
+            if (isMuted) return;
+            ms   = ms   || 4000;
+            type = type || 'normal';
+            if (speechTimer) clearTimeout(speechTimer);
+            isSpeaking = true;
+            textEl.textContent = text;
+            bubble.classList.remove('hidden');
+            wrapper.classList.remove('speaking-anim', 'excited-anim');
+            wrapper.classList.add(type === 'excited' ? 'excited-anim' : 'speaking-anim');
+            speakEndTime = Date.now() + ms;
+            speechTimer  = setTimeout(closeBubble, ms);
+        }
+
+        function speakIfFree(text, ms, type) {
+            if (!isSpeaking) speak(text, ms, type);
+        }
+
+        function closeBubble() {
+            bubble.classList.add('hidden');
+            wrapper.classList.remove('speaking-anim', 'excited-anim');
+            isSpeaking = false;
+            if (speechTimer) { clearTimeout(speechTimer); speechTimer = null; }
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            localStorage.setItem('neo-avatar-muted', isMuted);
+            if (isMuted) {
+                container.classList.add('muted');
+                closeBubble();
+            } else {
+                container.classList.remove('muted');
+                speak('Sound enabled! I\'ll be talking again 🔊', 3000);
+            }
+        }
+
+        /* ─── UI Event Listeners ─── */
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeBubble();
+        });
+
+        wrapper.addEventListener('mouseenter', function() {
+            if (!isMuted && typeof AudioSynth !== 'undefined') {
+                AudioSynth.playWink();
+            }
+        });
+
+        var lastClick = 0;
+        wrapper.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var now = Date.now();
+            if (now - lastClick < 350) { // double-click → toggle mute
+                toggleMute();
+                lastClick = 0;
+                return;
+            }
+            lastClick = now;
+            setTimeout(function() {
+                if (!lastClick) return; // was a double-click
+                if (isMuted) { toggleMute(); return; }
+                if (!bubble.classList.contains('hidden') && Date.now() < speakEndTime) {
+                    closeBubble();
+                } else {
+                    if (typeof AudioSynth !== 'undefined') AudioSynth.playWink();
+                    speak(tips[Math.floor(Math.random() * tips.length)], 5000);
+                }
+            }, 360);
+        });
+
+        /* ═══════════════════════════════════════════════════════
+           SECTION-BASED TRIGGERS (IntersectionObserver)
+           Fires immediately the moment the section enters viewport
+           ═══════════════════════════════════════════════════════ */
+
+        var sectionMessages = {
+            'hero':       { msg: null,                                                                                 ms: 5500, type: 'normal'  },
+            'about':      { msg: 'You reached the About section! CS student from Skikda, Algeria 🇩🇿',             ms: 5000, type: 'normal'  },
+            'experience': { msg: 'This is the journey section! Check out the interactive map below 🗺️⬇️',         ms: 5000, type: 'normal'  },
+            'skills':     { msg: 'Skills section! Khalil masters JavaScript, Java, PHP, SQL and more 💡',         ms: 5000, type: 'normal'  },
+            'projects':   { msg: 'Real projects with source code on GitHub! Click any project for details 🚀',    ms: 5000, type: 'excited' },
+            'contact':    { msg: 'Finally here! I was waiting for you 🎉 Don\'t hesitate to reach out!',          ms: 5500, type: 'excited' }
+        };
+
+        if ('IntersectionObserver' in window) {
+            Object.keys(sectionMessages).forEach(function(id) {
+                var el = document.getElementById(id);
+                if (!el) return;
+
+                var cfg = sectionMessages[id];
+                var obs = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(en) {
+                        if (en.isIntersecting && !seenSections[id] && !isMuted) {
+                            seenSections[id] = true;
+                            // Hero: use time-of-day greeting
+                            if (id === 'hero') {
+                                var h = new Date().getHours();
+                                var heroMsg;
+                                if      (h >= 6  && h < 12) heroMsg = 'Good morning! ☀️ Starting the day with a portfolio visit? Nice!';
+                                else if (h >= 12 && h < 17) heroMsg = 'Good afternoon! 🌤️ Checking out the portfolio? Let me guide you!';
+                                else if (h >= 17 && h < 21) heroMsg = 'Good evening! 🌆 Great time to explore some projects!';
+                                else                         heroMsg = "It's late! 🌙 Night owl spotted — Khalil codes at night too!";
+                                speakIfFree(heroMsg, cfg.ms, cfg.type);
+                            } else {
+                                speakIfFree(cfg.msg, cfg.ms, cfg.type); // fires immediately
+                            }
+                            obs.unobserve(el);
+                        }
+                    });
+                }, { threshold: 0.20, rootMargin: '0px 0px -60px 0px' });
+                obs.observe(el);
+            });
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           BEHAVIOR-BASED TRIGGERS
+           ═══════════════════════════════════════════════════════ */
+
+        /* A — Fast Mouse Movement */
+        var lx = null, ly = null, lt = null, fm = 0, fmCool = false;
+        document.addEventListener('mousemove', function(e) {
+            var now = Date.now();
+            if (lx !== null && lt !== null) {
+                var dt = now - lt;
+                if (dt > 0) {
+                    var d = Math.sqrt(Math.pow(e.clientX - lx, 2) + Math.pow(e.clientY - ly, 2));
+                    if (d / dt > 2.8) {
+                        fm++;
+                        if (fm > 10 && !fmCool && !isSpeaking && !isMuted) {
+                            speak('Easy there! The site isn\'t going anywhere 😅', 4000);
+                            fmCool = true; fm = 0;
+                            setTimeout(function() { fmCool = false; }, 30000);
+                        }
+                    } else { fm = Math.max(0, fm - 0.5); }
+                }
+            }
+            lx = e.clientX; ly = e.clientY; lt = now;
+        });
+
+        /* B — Idle (20 s without any interaction) */
+        var idleT = null;
+        var idleMessages = [
+            'Impressed by the design? Or did you fall asleep? 😴',
+            'Don\'t be shy! The site is waiting for you to explore it 👀',
+            'Click on me and I\'ll share a fun fact! 😄'
+        ];
+        var idleIdx = 0;
+        function resetIdle() {
+            clearTimeout(idleT);
+            idleT = setTimeout(function() {
+                if (!isSpeaking && !isMuted) {
+                    speak(idleMessages[idleIdx % idleMessages.length], 4500);
+                    idleIdx++;
+                }
+            }, 20000);
+        }
+        ['mousemove', 'click', 'keydown', 'scroll', 'touchstart'].forEach(function(ev) {
+            document.addEventListener(ev, resetIdle, { passive: true });
+        });
+        resetIdle();
+
+        /* C — Rage Clicks (5+ clicks in 2.5 s) */
+        var clicks = [], clickCool = false;
+        document.addEventListener('click', function(e) {
+            if (wrapper.contains(e.target) || closeBtn.contains(e.target)) return;
+            var now = Date.now();
+            clicks = clicks.filter(function(t) { return now - t < 2500; });
+            clicks.push(now);
+            if (clicks.length >= 5 && !clickCool && !isSpeaking && !isMuted) {
+                speak('The button gets it — once is enough! 😂', 4000, 'excited');
+                clickCool = true; clicks = [];
+                setTimeout(function() { clickCool = false; }, 25000);
+            }
+        });
+
+        /* D — Copy Text (someone copied content) */
+        document.addEventListener('copy', function() {
+            if (!isSpeaking && !isMuted) {
+                speak('Copying Khalil\'s code? Don\'t forget the credits! 😄✌️', 4000, 'excited');
+            }
+        });
+
+        /* E — Scroll to Bottom of Page */
+        var bottomDone = false;
+        window.addEventListener('scroll', function() {
+            if (bottomDone) return;
+            var scrolled = window.scrollY + window.innerHeight;
+            var total    = document.documentElement.scrollHeight;
+            if (scrolled >= total - 80 && !isSpeaking && !isMuted) {
+                bottomDone = true;
+                speak('You made it to the end! Thanks for your time — reach out to Khalil now 🙌', 5500, 'excited');
+            }
+        }, { passive: true });
+
+        /* F — Exit Intent (mouse leaves top of viewport) */
+        var exitDone = false;
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY < 15 && !exitDone && !isSpeaking && !isMuted) {
+                exitDone = true;
+                speak('Leaving already? You haven\'t seen the projects or Terminal yet! 👀', 5000);
+            }
+        });
+
+        /* ═══════════════════════════════════════════════════════
+           EXTRA INTERACTIONS (10 new triggers)
+           ═══════════════════════════════════════════════════════ */
+
+        /* G — Returning Visitor */
+        (function() {
+            var visitCount = parseInt(localStorage.getItem('neo-visit-count') || '0', 10) + 1;
+            localStorage.setItem('neo-visit-count', visitCount);
+            if (visitCount > 1) {
+                // Slightly delay so it doesn't collide with hero greeting
+                setTimeout(function() {
+                    if (!isSpeaking && !isMuted) {
+                        speak('Welcome back! 👋 Visit #' + visitCount + ' — something new to explore each time!', 5000, 'excited');
+                        seenSections['hero'] = true; // don't double-greet
+                    }
+                }, 800);
+            }
+        })();
+
+        /* H — Konami Code Easter Egg (↑↑↓↓←→←→BA) */
+        (function() {
+            var konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+            var kIdx = 0;
+            document.addEventListener('keydown', function(e) {
+                if (e.key === konami[kIdx]) {
+                    kIdx++;
+                    if (kIdx === konami.length) {
+                        kIdx = 0;
+                        speak('🎮 Whoa! A true gamer! You unlocked the secret Easter Egg! Khalil plays too 😎', 6000, 'excited');
+                        // Make robot wiggle enthusiastically
+                        wrapper.style.animation = 'wiggle-avatar 0.2s ease infinite';
+                        setTimeout(function() { wrapper.style.animation = ''; }, 3000);
+                    }
+                } else { kIdx = 0; }
+            });
+        })();
+
+        /* I — Theme Toggle Reaction */
+        (function() {
+            var themeBtn = document.getElementById('theme-toggle');
+            if (!themeBtn) return;
+            themeBtn.addEventListener('click', function() {
+                setTimeout(function() {
+                    var isDark = document.body.getAttribute('data-theme') === 'dark';
+                    if (!isSpeaking && !isMuted) {
+                        if (isDark) speak('Ooh dark mode! Much easier on the eyes at night 🌙', 4000);
+                        else         speak('Switched to light mode? Bold choice ☀️ Khalil approves!', 4000);
+                    }
+                }, 150);
+            });
+        })();
+
+        /* J — Contact Form: Typing encouragement + Submit celebration */
+        (function() {
+            var form  = document.getElementById('contact-form');
+            if (!form) return;
+            var typingDone   = false;
+            var submitDone   = false;
+
+            // Typing: fire once on first focus/input in form
+            form.addEventListener('focusin', function() {
+                if (!typingDone && !isSpeaking && !isMuted) {
+                    typingDone = true;
+                    speak('Oh you\'re writing a message! 😊 Khalil will be thrilled — take your time!', 5000);
+                }
+            });
+
+            // Submit celebration
+            form.addEventListener('submit', function() {
+                if (!submitDone && !isMuted) {
+                    submitDone = true;
+                    setTimeout(function() {
+                        speak('Message sent! 🎉 Khalil will reply as soon as possible!', 5500, 'excited');
+                    }, 600);
+                }
+            });
+        })();
+
+        /* K — Scroll Direction Reversal (scrolling up after going down) */
+        (function() {
+            var lastScrollY  = window.scrollY;
+            var scrollUpDone = false;
+            window.addEventListener('scroll', function() {
+                var current = window.scrollY;
+                if (current < lastScrollY - 80 && !scrollUpDone && current > 200 && !isSpeaking && !isMuted) {
+                    scrollUpDone = true;
+                    speak('Going back up? Changed your mind? 😄 No worries, take your time!', 4000);
+                    setTimeout(function() { scrollUpDone = false; }, 45000);
+                }
+                lastScrollY = current;
+            }, { passive: true });
+        })();
+
+        /* L — Print / Screenshot Attempt (Ctrl+P) */
+        window.addEventListener('beforeprint', function() {
+            if (!isMuted) speak('Printing the portfolio? Nice! Don\'t forget to share the live link too 😄', 5000, 'excited');
+        });
+
+        /* M — Social Link Hover (GitHub & LinkedIn) */
+        (function() {
+            var ghLinks = document.querySelectorAll('a[href*="github.com/Latreche"]');
+            var liLinks = document.querySelectorAll('a[href*="linkedin.com"]');
+            var ghDone  = false;
+            var liDone  = false;
+
+            ghLinks.forEach(function(a) {
+                a.addEventListener('mouseenter', function() {
+                    if (!ghDone && !isSpeaking && !isMuted) {
+                        ghDone = true;
+                        speak('Checking the source code? Smart! ⭐ Don\'t forget to star the repo!', 4500);
+                        setTimeout(function() { ghDone = false; }, 30000);
+                    }
+                });
+            });
+
+            liLinks.forEach(function(a) {
+                a.addEventListener('mouseenter', function() {
+                    if (!liDone && !isSpeaking && !isMuted) {
+                        liDone = true;
+                        speak('LinkedIn? Khalil is open to opportunities! 💼', 4000);
+                        setTimeout(function() { liDone = false; }, 30000);
+                    }
+                });
+            });
+        })();
+
+        /* N — Map Click Interaction */
+        (function() {
+            var mapEl   = document.getElementById('journey-map');
+            var mapDone = false;
+            if (!mapEl) return;
+            mapEl.addEventListener('click', function() {
+                if (!mapDone && !isSpeaking && !isMuted) {
+                    mapDone = true;
+                    speak('Exploring the map! 📍 Each pin marks a milestone in Khalil\'s journey!', 5000);
+                    setTimeout(function() { mapDone = false; }, 60000);
+                }
+            });
+        })();
+
+    })();
+    </script>
+
+    <!-- ═══ NEW UX FEATURES JS ═══ -->
+    <script>
+    (function() {
+        'use strict';
+
+        /* ══════════════════════════════════════════════════
+           1. TYPEWRITER SUBTITLE
+           Cycles through roles in the Hero section
+           ══════════════════════════════════════════════════ */
+        (function() {
+            var el = document.getElementById('typewriter-role');
+            if (!el) return;
+
+            var roles = [
+                'CS Student 🎓',
+                'Full-Stack Developer 💻',
+                'AI Enthusiast 🧠',
+                'Problem Solver 🔧',
+                'Web Developer 🌐'
+            ];
+
+            var rIdx     = 0;
+            var cIdx     = 0;
+            var deleting = false;
+            var SPEED_TYPE = 80;
+            var SPEED_DEL  = 45;
+            var PAUSE_END  = 1800;
+            var PAUSE_START= 400;
+
+            function tick() {
+                var role    = roles[rIdx];
+                var current = role.substring(0, cIdx);
+                el.textContent = current;
+
+                if (!deleting) {
+                    if (cIdx < role.length) {
+                        cIdx++;
+                        setTimeout(tick, SPEED_TYPE);
+                    } else {
+                        deleting = true;
+                        setTimeout(tick, PAUSE_END);
+                    }
+                } else {
+                    if (cIdx > 0) {
+                        cIdx--;
+                        setTimeout(tick, SPEED_DEL);
+                    } else {
+                        deleting = false;
+                        rIdx = (rIdx + 1) % roles.length;
+                        setTimeout(tick, PAUSE_START);
+                    }
+                }
+            }
+            setTimeout(tick, 1200); // start after page load
+        })();
+
+
+        /* ══════════════════════════════════════════════════
+           2. ANIMATED COUNTERS
+           Numbers count up when About section enters viewport
+           ══════════════════════════════════════════════════ */
+        (function() {
+            var countersEl = document.getElementById('about-counters');
+            if (!countersEl || !('IntersectionObserver' in window)) return;
+
+            var triggered = false;
+            var obs = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting && !triggered) {
+                    triggered = true;
+                    obs.disconnect();
+
+                    countersEl.querySelectorAll('.counter-num').forEach(function(num) {
+                        var target   = parseInt(num.getAttribute('data-target'), 10);
+                        var duration = 1600; // ms
+                        var start    = null;
+
+                        function step(ts) {
+                            if (!start) start = ts;
+                            var progress = Math.min((ts - start) / duration, 1);
+                            // ease-out cubic
+                            var eased = 1 - Math.pow(1 - progress, 3);
+                            num.textContent = Math.floor(eased * target);
+                            if (progress < 1) requestAnimationFrame(step);
+                            else num.textContent = target;
+                        }
+                        requestAnimationFrame(step);
+                    });
+                }
+            }, { threshold: 0.4 });
+            obs.observe(countersEl);
+        })();
+
+
+        /* ══════════════════════════════════════════════════
+           3. CONFETTI EXPLOSION on contact form submit
+           ══════════════════════════════════════════════════ */
+        (function() {
+            var form = document.getElementById('contact-form');
+            if (!form || typeof confetti === 'undefined') return;
+
+            form.addEventListener('submit', function() {
+                if (typeof AudioSynth !== 'undefined') AudioSynth.playConfetti();
+                setTimeout(function() {
+                    // Burst from center
+                    confetti({
+                        particleCount: 120,
+                        spread: 80,
+                        origin: { y: 0.6 },
+                        colors: ['#ff6b9d','#ffd93d','#66d9ef','#a8e6cf','#ff4757']
+                    });
+                    // Second burst slightly left
+                    setTimeout(function() {
+                        confetti({
+                            particleCount: 60,
+                            angle: 60,
+                            spread: 55,
+                            origin: { x: 0 },
+                            colors: ['#ff6b9d','#ffd93d','#66d9ef']
+                        });
+                    }, 200);
+                    // Third burst slightly right
+                    setTimeout(function() {
+                        confetti({
+                            particleCount: 60,
+                            angle: 120,
+                            spread: 55,
+                            origin: { x: 1 },
+                            colors: ['#a8e6cf','#ff4757','#ffd93d']
+                        });
+                    }, 350);
+                }, 600);
+            });
+        })();
+
+
+        /* ══════════════════════════════════════════════════
+           4. ONE-CLICK SHARE BUTTON
+           Copies portfolio URL to clipboard + shows toast
+           ══════════════════════════════════════════════════ */
+        (function() {
+            var btn = document.getElementById('share-btn');
+            if (!btn) return;
+
+            // Create toast element
+            var toast = document.createElement('div');
+            toast.id = 'share-toast';
+            toast.textContent = '✅ Link copied to clipboard!';
+            document.body.appendChild(toast);
+
+            btn.addEventListener('click', function() {
+                if (typeof AudioSynth !== 'undefined') AudioSynth.playShare();
+                var url = window.location.href;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(showToast).catch(fallback);
+                } else { fallback(); }
+            });
+
+            function showToast() {
+                toast.classList.add('show');
+                setTimeout(function() { toast.classList.remove('show'); }, 2800);
+            }
+
+            function fallback() {
+                // Legacy copy via textarea
+                var ta = document.createElement('textarea');
+                ta.value = window.location.href;
+                ta.style.position = 'fixed'; ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select(); document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast();
+            }
+        })();
+
+    })();
+    </script>
+
 </body>
 </html>
+
 

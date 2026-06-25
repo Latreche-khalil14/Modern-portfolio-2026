@@ -11,7 +11,7 @@ class TerminalResume {
     this.resizing = null;
 
     // New properties for themes and game
-    this.currentTheme = localStorage.getItem("theme") || "default";
+    this.currentTheme = localStorage.getItem("theme") || "nord";
     this.projects = [];
     this.skills = {};
     this.fileSystem = {};
